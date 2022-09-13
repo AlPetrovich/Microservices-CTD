@@ -8,11 +8,11 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/nicoezdias/Api_Catalog
+          uri: https://github.com/AlPetrovich/Microservices-CTD
           searchPaths: microservices-config
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka
 
