@@ -11,6 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/fallback")
 public class FallBackController {
 
+    /*
+        METODOS para mapear respuesta de error en caso de que gateway no pueda acceder a los servicios
+
+         filters:
+            - name: CircuitBreaker
+              args:
+                name: catalogService | moviesService | seriesService
+                fallbackUri: forward:/fallback/ movies | series | catalogs
+     */
+
+
     @CircuitBreaker(name= "moviesService")
     @GetMapping("/movies")
     public ResponseEntity<String> moviesFallBack(){

@@ -4,10 +4,7 @@ import com.dh.catalog.service.api.service.CatalogService;
 import com.dh.catalog.service.domain.dto.MovieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,13 +18,14 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+    // por medio de cliente feign obtengo la lista de peliculas por genero
     @GetMapping("/{genre}")
     public ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre){
         return catalogService.findMovieByGenre(genre);
     }
 
     @GetMapping("/withErrors/{genre}")
-    public ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre, @PathVariable boolean throwError){
+    public ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre, @RequestParam("throwError") boolean throwError){
         return catalogService.findMovieByGenre(genre, throwError);
     }
 }

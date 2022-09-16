@@ -4,12 +4,15 @@ server:
 spring:
   application:
     name: eureka-server
-
+  zipkin:
+    enabled: true
+    baseUrl: http://zipkin:9411
 eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
 
+# Actuator
 management:
   endpoints:
     web:

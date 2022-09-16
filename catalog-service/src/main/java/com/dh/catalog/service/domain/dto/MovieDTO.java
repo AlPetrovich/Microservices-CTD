@@ -10,6 +10,13 @@ public class MovieDTO {
     public MovieDTO() {
     }
 
+    public MovieDTO(Long id, String name, String genre, String urlStream) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.urlStream = urlStream;
+    }
+
     public Long getId() {
         return id;
     }

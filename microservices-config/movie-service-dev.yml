@@ -1,6 +1,7 @@
 server:
   port: 8082
 
+# Conexion base de datos
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -9,12 +10,13 @@ spring:
     password: sa
   sql:
     init:
-      data-locations: classpath:movie.sql
+      data-locations: classpath:movie.sql #Archivo para inicializar la base de datos
   jpa:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
 
+# Actuator
 info:
   app:
     name: ${spring.application.name}

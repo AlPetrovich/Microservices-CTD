@@ -31,7 +31,8 @@ public class CatalogService {
         return movieClient.getMovieByGenre(genre);
     }
 
-    //obtener peliculas por genero -- prueba CircuitBreaker
+
+    //"movies" -> nombre instancia en circuitBreaker config
     @CircuitBreaker(name = "movies", fallbackMethod = "moviesFallBackMethod")
     public ResponseEntity<List<MovieDTO>> findMovieByGenre(String genre, Boolean throwError){
         LOG.info("Buscando peliculas por genero" + genre);
@@ -41,7 +42,8 @@ public class CatalogService {
     //metodo de fallback
     public ResponseEntity<List<MovieDTO>> moviesFallBackMethod(CallNotPermittedException exception){
         LOG.info("Error al buscar peliculas por genero, CIRCUIT BREAKER ACTIVADO");
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK); //devuelve lista vacia
+        //retorno listra vacia pero podria devolver valores guardados en cache u otra logica
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
     //guardar pelicula con RabbitMQ - no implementado
