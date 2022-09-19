@@ -1,12 +1,14 @@
-package com.dh.catalog.service.api.service;
+package com.dh.catalog.api.service;
 
-import com.dh.catalog.service.api.client.MovieClient;
-import com.dh.catalog.service.domain.dto.MovieDTO;
+import com.dh.catalog.api.client.MovieClient;
+import com.dh.catalog.domain.dto.MovieDTO;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,19 @@ import java.util.List;
 @Service
 public class CatalogService {
 
+    //Variable de entorno para el nombre de la cola que configuramos
+    @Value("${queue.movie.name}")
+    private String queueName;
+
+    private final RabbitTemplate rabbitTemplate;
+
     private final Logger LOG = LoggerFactory.getLogger(CatalogService.class);
     private final MovieClient movieClient;
 
     @Autowired
-    public CatalogService(MovieClient movieClient){
+    public CatalogService(MovieClient movieClient, RabbitTemplate rabbitTemplate){
         this.movieClient = movieClient;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     //obtener peliculas por genero
@@ -46,7 +55,11 @@ public class CatalogService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
-    //guardar pelicula con RabbitMQ - no implementado
+    //guardar pelicula con RabbitMQ -
+    public void saveMovie(MovieDTO movieDTO){
+        /*recibe pelicula y conecta con rabbitMQ para enviarla a la cola*/
+        rabbitTemplate.convertAndSend(queueName, movieDTO);
+    }
 
 
 }

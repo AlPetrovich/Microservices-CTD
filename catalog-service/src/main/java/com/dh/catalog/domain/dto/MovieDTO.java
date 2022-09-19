@@ -1,4 +1,4 @@
-package com.dh.catalog.service.domain.dto;
+package com.dh.catalog.domain.dto;
 
 public class MovieDTO {
 

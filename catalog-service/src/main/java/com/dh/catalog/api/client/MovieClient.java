@@ -1,7 +1,7 @@
-package com.dh.catalog.service.api.client;
+package com.dh.catalog.api.client;
 
 
-import com.dh.catalog.service.domain.dto.MovieDTO;
+import com.dh.catalog.domain.dto.MovieDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

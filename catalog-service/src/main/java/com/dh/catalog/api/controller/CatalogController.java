@@ -1,7 +1,7 @@
-package com.dh.catalog.service.api.controller;
+package com.dh.catalog.api.controller;
 
-import com.dh.catalog.service.api.service.CatalogService;
-import com.dh.catalog.service.domain.dto.MovieDTO;
+import com.dh.catalog.api.service.CatalogService;
+import com.dh.catalog.domain.dto.MovieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +27,12 @@ public class CatalogController {
     @GetMapping("/withErrors/{genre}")
     public ResponseEntity<List<MovieDTO>> getGenre(@PathVariable String genre, @RequestParam("throwError") boolean throwError){
         return catalogService.findMovieByGenre(genre, throwError);
+    }
+
+    // Guardar catalogo usando RabbitMQ
+    @PostMapping("/save")
+    public ResponseEntity<String> saveMovie(@RequestBody MovieDTO movieDTO){
+        catalogService.saveMovie(movieDTO);
+        return ResponseEntity.ok("Movie was sent to queue");
     }
 }

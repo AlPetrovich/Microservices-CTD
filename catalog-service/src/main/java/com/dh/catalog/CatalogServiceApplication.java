@@ -1,4 +1,4 @@
-package com.dh.catalog.service;
+package com.dh.catalog;
 
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
