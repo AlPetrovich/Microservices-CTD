@@ -1,4 +1,9 @@
 # Actuator
+spring:
+  zipkin:
+    enabled: true
+    baseUrl: http://zipkin:9411 #zipkin container name
+
 management:
   endpoints:
     web:
