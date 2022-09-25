@@ -1,22 +1,16 @@
 server:
   port: 8082
 
-# Conexion base de datos
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;
-    username: sa
-    password: sa
-  sql:
-    init:
-      data-locations: classpath:movie.sql #Archivo para inicializar la base de datos
   jpa:
-    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://mysql:3306/tp_final
+    username: user
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-# Actuator
 info:
   app:
     name: ${spring.application.name}

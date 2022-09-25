@@ -2,6 +2,7 @@ package com.dh.catalog.api.controller;
 
 import com.dh.catalog.api.service.CatalogService;
 import com.dh.catalog.domain.dto.MovieDTO;
+import com.dh.catalog.domain.dto.SerieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,4 +36,13 @@ public class CatalogController {
         catalogService.saveMovie(movieDTO);
         return ResponseEntity.ok("Movie was sent to queue");
     }
+
+    //Guardar serie usando RabbitMQ
+    @PostMapping("/save/series")
+    public ResponseEntity<String> saveSeries(@RequestBody SerieDTO serieDTO){
+        catalogService.saveSeries(serieDTO);
+        return ResponseEntity.ok("Series was sent to queue");
+    }
+
+
 }

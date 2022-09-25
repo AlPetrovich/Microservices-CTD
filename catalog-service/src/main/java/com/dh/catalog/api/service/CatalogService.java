@@ -2,6 +2,7 @@ package com.dh.catalog.api.service;
 
 import com.dh.catalog.api.client.MovieClient;
 import com.dh.catalog.domain.dto.MovieDTO;
+import com.dh.catalog.domain.dto.SerieDTO;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
@@ -22,6 +23,9 @@ public class CatalogService {
     //Variable de entorno para el nombre de la cola que configuramos
     @Value("${queue.movie.name}")
     private String queueName;
+
+    @Value("${queue.series.name}")
+    private String queueSeriesName;
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -61,5 +65,8 @@ public class CatalogService {
         rabbitTemplate.convertAndSend(queueName, movieDTO);
     }
 
+    public void saveSeries(SerieDTO serieDTO){
+        rabbitTemplate.convertAndSend(queueSeriesName, serieDTO);
+    }
 
 }

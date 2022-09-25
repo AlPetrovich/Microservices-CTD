@@ -10,7 +10,7 @@ services:
       - "15672:15672"
       - "5672:5672"
   eureka-service:
-    image: eureka-service
+    image: eureka-server
     ports:
       - "8761:8761"
     restart: always
