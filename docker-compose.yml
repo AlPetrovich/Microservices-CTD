@@ -1,14 +1,14 @@
 version: "3.9"
 services:
-  zipkin:
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
   rabbitmq:
     image: rabbitmq:3.7.2-management
     ports:
       - "15672:15672"
       - "5672:5672"
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
   eureka-service:
     image: eureka-server
     ports:
@@ -19,6 +19,16 @@ services:
     ports:
       - "8888:8888"
     restart: always
+  api-gateway:
+    image: api-gateway
+    ports:
+      - "8080:8080"
+    restart: always
+  series-service:
+    image: series-service
+    ports:
+      - "8086:8086"
+    restart: always
   movie-service:
     image: movie-service
     ports:
@@ -28,11 +38,6 @@ services:
     image: catalog-service
     ports:
       - "8084:8084"
-    restart: always
-  api-gateway:
-    image: api-gateway
-    ports:
-      - "8080:8080"
     restart: always
   mongodb:
     image: mongo
@@ -54,6 +59,16 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
       - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
       - ME_CONFIG_MONGODB_SERVER=mongodb
+  mysql:
+    image: mysql
+    ports:
+      - 3307:3307
+    environment:
+      - MYSQL_DATABASE=tp_final
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_ROOT_PASSWORD=pass
+
 volumes:
   data: { }
 networks:
