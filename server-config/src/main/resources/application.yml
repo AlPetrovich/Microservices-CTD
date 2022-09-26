@@ -12,7 +12,6 @@ spring:
       server:
         git:
           uri: https://github.com/AlPetrovich/Microservices-CTD
-          searchPaths: microservices-config
 
 eureka:
   client:
